@@ -6,6 +6,12 @@
 
 Fuse is very, very new! At the moment all it does is combine multiple JavaScript files into one. It doesn't do anything else (yet) in terms of minification, etc.
 
+## Installation (via NPM)
+
+	[sudo] npm install fuse -g
+
+You need to install it globally, because it's nothing something that you can `require` in your nodejs code. It's only a command line program.
+
 ## Usage
 
 ### In your JavaScript file
