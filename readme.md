@@ -31,3 +31,5 @@ To run just once:
 To watch a file for changes:
 
 	fuse.js -i path/to/main.js -o path/to/output.js -w
+
+Fuse will automatically watch any referenced files for changes too, and recompile the output file upon any changes.

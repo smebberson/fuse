@@ -2,12 +2,12 @@
   "name"          : "fuse",
   "description"   : "Command line combiner for fusing mutliple JavaScript files into one",
   "url"           : "http://github.com/smebberson/fuse",
-  "keywords"      : ["combiner", "javascript", "cli", "parser", "command"],
+  "keywords"      : ["combiner", "javascript", "cli", "parser", "command", "packager"],
   "author"        : {"name": "Scott Mebberson", "email": "scott@scottmebberson.com"},
   "repository"	  : {"type": "git", "url": "https://github.com/smebberson/fuse.git"},
   "dependencies"  : { "underscore": ">=1.2.0", "optimist": ">=0.2.8" },
   "bin"           : { "fuse": "./bin/fuse.js" },
   "directories"   : { "bin": "./bin" },
-  "version"       : "0.0.3",
+  "version"       : "0.0.4",
   "engines"       : {"node": ">=0.4"}
 }
