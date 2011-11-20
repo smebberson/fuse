@@ -8,6 +8,6 @@
   "dependencies"  : { "underscore": ">=1.2.0", "optimist": ">=0.2.8", "colors": ">=0.5.1" },
   "bin"           : { "fuse": "./bin/fuse.js" },
   "directories"   : { "bin": "./bin" },
-  "version"       : "0.0.4",
+  "version"       : "0.0.5",
   "engines"       : {"node": ">=0.4"}
 }
