@@ -26,10 +26,10 @@ Passing a file with the line above to Fuse, will produce a file containing the o
 
 To run just once:
 
-	fuse.js -i path/to/main.js -o path/to/output.js
+	fuse -i path/to/main.js -o path/to/output.js
 
 To watch a file for changes:
 
-	fuse.js -i path/to/main.js -o path/to/output.js -w
+	fuse -i path/to/main.js -o path/to/output.js -w
 
 Fuse will automatically watch any referenced files for changes too, and recompile the output file upon any changes.
