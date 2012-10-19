@@ -9,6 +9,6 @@
   "devDependencies"	: { "vows": ">=0.5.13"},
   "bin"				: { "fuse": "./bin/fuse.js" },
   "directories"   	: { "bin": "./bin" },
-  "version"       	: "0.0.5",
+  "version"       	: "0.0.6",
   "engines"       	: {"node": ">=0.4"}
 }
