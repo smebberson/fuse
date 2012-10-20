@@ -1,16 +1,16 @@
 # Fuse
 
-> Fuse is a command line tool to fuse multiple JavaScript files into one.
+> Fuse is a command line tool to fuse multiple JavaScript files into one, and optionally compress or mangle the JavaScript code.
 
 ## Introduction
 
-Fuse is very, very new! At the moment all it does is combine multiple JavaScript files into one. It doesn't do anything else (yet) in terms of minification, etc.
+Fuse is a simple cli tool to combine multiple JavaScript files into one. It also makes use of UglifyJS2 to either compress, or mangle or do both to the output of the JavaScript. It's designed to be simple, do less and be easy to use.
 
 ## Installation (via NPM)
 
 	[sudo] npm install fuse -g
 
-You need to install it globally, because it's nothing something that you can `require` in your nodejs code. It's only a command line program.
+You need to install it globally, because it's not something that you can `require` in your nodejs code. It's only a command line program.
 
 ## Usage
 
@@ -32,4 +32,16 @@ To watch a file for changes:
 
 	fuse -i path/to/main.js -o path/to/output.js -w
 
-Fuse will automatically watch any referenced files for changes too, and recompile the output file upon any changes.
+When watching, Fuse will automatically watch any referenced files for changes too, and recompile the output file upon any changes to reference files.
+
+To compress the output using UglifyJS2:
+
+	fuse -i path/to/main.js -o path/to/output.js -c
+
+To mangle the output using UglifyJS2:
+
+	fuse -i path/to/main.js -o path/to/output.js -m
+
+To compress and mangle, and watch:
+
+	fuse -i path/to/main.js -o path/to/output.js -c -m -w
