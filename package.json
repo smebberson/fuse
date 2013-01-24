@@ -5,7 +5,7 @@
   "keywords"      	: ["combiner", "javascript", "cli", "parser", "command", "packager"],
   "author"        	: {"name": "Scott Mebberson", "email": "scott@scottmebberson.com"},
   "repository"	  	: {"type": "git", "url": "https://github.com/smebberson/fuse.git"},
-  "dependencies"  	: { "underscore": ">=1.4.x", "optimist": ">=0.3.5", "colors": ">=0.6.x", "uglify-js": ">=2.2.x" },
+  "dependencies"  	: { "underscore": ">=1.4.x", "optimist": ">=0.3.5", "colors": ">=0.6.x", "uglify-js": ">=2.2.x", "jshint": "0.9.x" },
   "devDependencies"	: { "vows": ">=0.5.13"},
   "bin"				: { "fuse": "./bin/fuse.js" },
   "directories"   	: { "bin": "./bin" },

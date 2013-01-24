@@ -4,7 +4,7 @@
 
 var colors = require('colors');
 var _ = require('underscore');
-var argv = require('optimist').usage('Usage: $0 -i [javascript-file.js] -o [javascript-file.js] (-w) (-c) (-m)').demand(['i', 'o']).describe('i', 'JavaScript input file').describe('o', 'JavaScript output file').describe('w', 'Watch the input file for changes.').describe('c', 'Compress the output using UglifyJS2.').describe('m', 'Mangle the output using UglifyJS2.').argv;
+var argv = require('optimist').usage('Usage: $0 -i [javascript-file.js] -o [javascript-file.js] (-w) (-c) (-m) (-l)').demand(['i', 'o']).describe('i', 'JavaScript input file').describe('o', 'JavaScript output file').describe('w', 'Watch the input file for changes.').describe('c', 'Compress the output using UglifyJS2.').describe('m', 'Mangle the output using UglifyJS2.').describe('l', 'Lint the JavaScript using JSHint').argv;
 var fuse = require('../lib/fuse');
 var path = require('path');
 
@@ -27,6 +27,6 @@ if (argv.w) {
 } else {
 
 	// assume we're not watching a file, let's just package!
-	fuse.fuseFile(argv.i, argv.o, argv.c, argv.m);
+	fuse.fuseFile(argv.i, argv.o, argv.c, argv.m, argv.l);
 
 }
