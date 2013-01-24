@@ -12,17 +12,18 @@ if (argv.w) {
 	
 	// let's grab each file that we need to watch
 	var a = fuse.getReferencedFiles(fuse.getFileContent(argv.i));
-	var relativePath = path.dirname(argv.i);
+	var relativePath = path.dirname(argv.i) + '/';
 	
 	// loop through an setup a watch on each referenced file
 	_(a).each(function (path) {
-		fuse.watchSrcFile(relativePath + path.path, argv.i, argv.o);
-		console.log('Watching ' + colors.cyan(path.path) + ' for changes.');
+
+		fuse.watchSrcFile(relativePath + path.path, argv.i, argv.o, argv.c, argv.m, argv.l);
+		console.log('Watching ' + colors.cyan(relativePath + path.path) + ' for changes.');
 	});
 	
 	// we also need to watch the input file
-	fuse.watchFile(argv.i, argv.o, argv.c, argv.m);
-	console.log('Watching ' + colors.cyan(argv.i) + ' for changes.\nCTRL + C to stop.');
+	fuse.watchFile(argv.i, argv.o, argv.c, argv.m, argv.l);
+	console.log('Watching ' + colors.cyan(argv.i) + ' for changes.\nCTRL + C to stop.\n');
 	
 } else {
 
