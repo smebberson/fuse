@@ -5,9 +5,9 @@ var child;
 
 describe('Using fuse', function () {
 
-	describe('should allow fusing', function () {
+	describe('should fuse two files', function () {
 
-		it('should fuse by @depends', function (done) {
+		it('by @depends', function (done) {
 
 			exec('fuse -i ' + process.cwd() + '/test/src/depends/basic-depends.js -o ' + process.cwd() + '/test/result/depends/basic-depends-output.js', function (error, stdout, stderr) {
 
@@ -21,7 +21,7 @@ describe('Using fuse', function () {
 
 		});
 
-		it('should fuse by @import', function (done) {
+		it('by @import', function (done) {
 
 			exec('fuse -i ' + process.cwd() + '/test/src/import/basic-import.js -o ' + process.cwd() + '/test/result/import/basic-import-output.js', function (error, stdout, stderr) {
 
