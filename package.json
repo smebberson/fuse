@@ -9,6 +9,6 @@
   "devDependencies"	: { "mocha": "1.8.x"},
   "bin"				: { "fuse": "./bin/fuse.js" },
   "directories"   	: { "bin": "./bin" },
-  "version"       	: "0.0.8",
+  "version"       	: "0.0.9",
   "engines"       	: {"node": ">=0.4"}
 }
