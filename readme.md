@@ -1,5 +1,4 @@
-[![build status](https://secure.travis-ci.org/smebberson/fuse.png)](http://travis-ci.org/smebberson/fuse)
-# Fuse
+# Fuse [![Build Status](https://travis-ci.org/smebberson/fuse.png?branch=master)](https://travis-ci.org/smebberson/fuse)
 
 > Fuse is a command line tool to fuse multiple JavaScript files into one, and optionally compress or mangle the JavaScript code.
 
@@ -12,6 +11,12 @@ Fuse is a simple cli tool to combine multiple JavaScript files into one. It also
 	[sudo] npm install fuse -g
 
 You need to install it globally, because it's not something that you can `require` in your nodejs code. It's only a command line program.
+
+## Running tests (via NPM)
+
+	npm test
+
+Tests are run using [Mocha][mocha]. You can also run `make test` to run the tests.
 
 ## Usage
 
@@ -46,3 +51,10 @@ To mangle the output using UglifyJS2:
 To compress and mangle, and watch:
 
 	fuse -i path/to/main.js -o path/to/output.js -c -m -w
+
+To lint with [jshint][jshint] before combining:
+
+	fuse -i path/to/main.js -o path/to/output.js -l
+
+[mocha]: http://visionmedia.github.com/mocha/
+[jshint]: http://www.jshint.com/about/
