@@ -24,6 +24,9 @@ if (argv.w) {
 	// we also need to watch the input file
 	fuse.watchFile(argv.i, argv.o, argv.c, argv.m, argv.l);
 	console.log('Watching ' + colors.cyan(argv.i) + ' for changes.\nCTRL + C to stop.\n');
+
+	// now what we've finished watching, let's fuse immediately too
+	fuse.fuseFile(argv.i, argv.o, argv.c, argv.m, argv.l, false);
 	
 } else {
 
