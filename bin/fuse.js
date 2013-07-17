@@ -4,7 +4,7 @@
 
 var colors = require('colors');
 var _ = require('underscore');
-var argv = require('optimist').usage('Usage: $0 -i [input-file.(js|html)] -o [output-file.(js|html)] (-w) (-c) (-m) (-l)').demand(['i', 'o']).describe('i', 'Input file').describe('o', 'Output file').describe('w', 'Watch the input file for changes.').describe('c', 'Compress the output using UglifyJS2 (JavaScript only).').describe('m', 'Mangle the output using UglifyJS2. (JavaScript only)').describe('l', 'Lint the JavaScript using JSHint (JavaScript only)').argv;
+var argv = require('optimist').usage('\nFuse JavaScript or HTML files.\n\nUsage: $0 -i [input-file.(js|html)] -o [output-file.(js|html)] (-w) (-c) (-m) (-l)').demand(['i', 'o']).describe('i', 'Input file').describe('o', 'Output file').describe('w', 'Watch the input file for changes.').describe('c', 'Compress the output using UglifyJS2 (JavaScript only).').describe('m', 'Mangle the output using UglifyJS2. (JavaScript only)').describe('l', 'Lint the JavaScript using JSHint (JavaScript only)').argv;
 var fuse = require('../lib/fuse');
 var path = require('path');
 
