@@ -1,37 +1,69 @@
 var assert = require('assert');
 var exec = require('child_process').exec;
 var fs = require('fs');
+var path = require('path');
 var child;
 
 describe('Using fuse', function () {
 
-	describe('with javascript', function () {
+	describe('on the command line', function () {
 
-		describe('should fuse two files', function () {
+		describe('with javascript', function () {
 
-			it('by @depends', function (done) {
+			describe('should fuse two files', function () {
 
-				exec('fuse -i ' + process.cwd() + '/test/javascript/src/depends/basic-depends.js -o ' + process.cwd() + '/test/javascript/result/depends/basic-depends-output.js', function (error, stdout, stderr) {
+				it('by @depends', function (done) {
 
-					// check the output against the expected output
-					assert.equal(fs.readFileSync(process.cwd() + '/test/javascript/result/depends/basic-depends-output.js', 'utf-8'), fs.readFileSync(process.cwd() + '/test/javascript/expected/depends/basic-depends-result.js', 'utf-8'));
+					exec('fuse -i ' + process.cwd() + '/test/javascript/src/depends/basic-depends.js -o ' + process.cwd() + '/test/javascript/result/depends/basic-depends-output.js', function (error, stdout, stderr) {
 
-					// we're done
-					done();
+						// check the output against the expected output
+						assert.equal(fs.readFileSync(process.cwd() + '/test/javascript/result/depends/basic-depends-output.js', 'utf-8'), fs.readFileSync(process.cwd() + '/test/javascript/expected/depends/basic-depends-result.js', 'utf-8'));
+
+						// delete the file
+						fs.unlinkSync(process.cwd() + '/test/javascript/result/depends/basic-depends-output.js');
+						
+						// we're done
+						done();
+
+					});
+
+				});
+
+				it('by @import', function (done) {
+
+					exec('fuse -i ' + process.cwd() + '/test/javascript/src/import/basic-import.js -o ' + process.cwd() + '/test/javascript/result/import/basic-import-output.js', function (error, stdout, stderr) {
+
+						// check the output against the expected output
+						assert.equal(fs.readFileSync(process.cwd() + '/test/javascript/result/import/basic-import-output.js', 'utf-8'), fs.readFileSync(process.cwd() + '/test/javascript/expected/import/basic-import-result.js', 'utf-8'));
+
+						// delete the file
+						fs.unlinkSync(process.cwd() + '/test/javascript/result/import/basic-import-output.js');
+						
+						// we're done
+						done();
+
+					});
 
 				});
 
 			});
 
-			it('by @import', function (done) {
+			describe('should fuse multiple files', function () {
 
-				exec('fuse -i ' + process.cwd() + '/test/javascript/src/import/basic-import.js -o ' + process.cwd() + '/test/javascript/result/import/basic-import-output.js', function (error, stdout, stderr) {
+				it('with two depends', function (done) {
 
-					// check the output against the expected output
-					assert.equal(fs.readFileSync(process.cwd() + '/test/javascript/result/import/basic-import-output.js', 'utf-8'), fs.readFileSync(process.cwd() + '/test/javascript/expected/import/basic-import-result.js', 'utf-8'));
+					exec('fuse -i ' + process.cwd() + '/test/javascript/src/twoDepends/input.js -o ' + process.cwd() + '/test/javascript/result/twoDepends/output.js', function (error, stdout, stderr) {
 
-					// we're done
-					done();
+						// check the output against the expected output
+						assert.equal(fs.readFileSync(process.cwd() + '/test/javascript/result/twoDepends/output.js', 'utf-8'), fs.readFileSync(process.cwd() + '/test/javascript/expected/twoDepends/result.js', 'utf-8'));
+
+						// delete the file
+						fs.unlinkSync(process.cwd() + '/test/javascript/result/twoDepends/output.js');
+						
+						// we're done
+						done();
+
+					});
 
 				});
 
@@ -39,17 +71,62 @@ describe('Using fuse', function () {
 
 		});
 
-		describe('should fuse multiple files', function () {
+		describe('with html', function () {
 
-			it('with two depends', function (done) {
+			describe('should fuse two files', function () {
 
-				exec('fuse -i ' + process.cwd() + '/test/javascript/src/twoDepends/input.js -o ' + process.cwd() + '/test/javascript/result/twoDepends/output.js', function (error, stdout, stderr) {
+				it('by <!-- @depends -->', function (done) {
 
-					// check the output against the expected output
-					assert.equal(fs.readFileSync(process.cwd() + '/test/javascript/result/twoDepends/output.js', 'utf-8'), fs.readFileSync(process.cwd() + '/test/javascript/expected/twoDepends/result.js', 'utf-8'));
+					exec('fuse -i ' + process.cwd() + '/test/html/src/depends/basic-depends.html -o ' + process.cwd() + '/test/html/result/depends/basic-depends-output.html', function (error, stdout, stderr) {
 
-					// we're done
-					done();
+						// check the output against the expected output
+						assert.equal(fs.readFileSync(process.cwd() + '/test/html/result/depends/basic-depends-output.html', 'utf-8'), fs.readFileSync(process.cwd() + '/test/html/expected/depends/basic-depends-result.html', 'utf-8'));
+
+						// delete the file
+						fs.unlinkSync(process.cwd() + '/test/html/result/depends/basic-depends-output.html');
+						
+						// we're done
+						done();
+
+					});
+
+				});
+
+				it('by <!-- @import -->', function (done) {
+
+					exec('fuse -i ' + process.cwd() + '/test/html/src/import/basic-import.html -o ' + process.cwd() + '/test/html/result/import/basic-import-output.html', function (error, stdout, stderr) {
+
+						// check the output against the expected output
+						assert.equal(fs.readFileSync(process.cwd() + '/test/html/result/import/basic-import-output.html', 'utf-8'), fs.readFileSync(process.cwd() + '/test/html/expected/import/basic-import-result.html', 'utf-8'));
+
+						// delete the file
+						fs.unlinkSync(process.cwd() + '/test/html/result/import/basic-import-output.html');
+
+						// we're done
+						done();
+
+					});
+
+				});
+
+			});
+
+			describe('should fuse multiple files', function () {
+
+				it('with two depends', function (done) {
+
+					exec('fuse -i ' + process.cwd() + '/test/html/src/twoDepends/input.html -o ' + process.cwd() + '/test/html/result/twoDepends/output.html', function (error, stdout, stderr) {
+
+						// check the output against the expected output
+						assert.equal(fs.readFileSync(process.cwd() + '/test/html/result/twoDepends/output.html', 'utf-8'), fs.readFileSync(process.cwd() + '/test/html/expected/twoDepends/result.html', 'utf-8'));
+
+						// delete the file
+						fs.unlinkSync(process.cwd() + '/test/html/result/twoDepends/output.html');
+
+						// we're done
+						done();
+
+					});
 
 				});
 
@@ -59,51 +136,21 @@ describe('Using fuse', function () {
 
 	});
 
-	describe('with html', function () {
+	describe('as a module', function () {
 
-		describe('should fuse two files', function () {
+		describe('with html', function () {
 
-			it('by <!-- @depends -->', function (done) {
+			it('should fuse content', function (done) {
 
-				exec('fuse -i ' + process.cwd() + '/test/html/src/depends/basic-depends.html -o ' + process.cwd() + '/test/html/result/depends/basic-depends-output.html', function (error, stdout, stderr) {
+				var fuse = require('../lib');
+				var content = "<p>html first</p><!-- @depends depends.html --><p>html end</p>";
+				var expected = "<p>html first</p><p>content from depends.html</p><p>html end</p>";
 
-					// check the output against the expected output
-					assert.equal(fs.readFileSync(process.cwd() + '/test/html/result/depends/basic-depends-output.html', 'utf-8'), fs.readFileSync(process.cwd() + '/test/html/expected/depends/basic-depends-result.html', 'utf-8'));
+				fuse.fuseContent(content, path.resolve(__dirname, 'module', 'depends'), 'html', function (err, result) {
 
-					// we're done
-					done();
+					assert.equal(expected, result);
 
-				});
-
-			});
-
-			it('by <!-- @import -->', function (done) {
-
-				exec('fuse -i ' + process.cwd() + '/test/html/src/import/basic-import.html -o ' + process.cwd() + '/test/html/result/import/basic-import-output.html', function (error, stdout, stderr) {
-
-					// check the output against the expected output
-					assert.equal(fs.readFileSync(process.cwd() + '/test/html/result/import/basic-import-output.html', 'utf-8'), fs.readFileSync(process.cwd() + '/test/html/expected/import/basic-import-result.html', 'utf-8'));
-
-					// we're done
-					done();
-
-				});
-
-			});
-
-		});
-
-		describe('should fuse multiple files', function () {
-
-			it('with two depends', function (done) {
-
-				exec('fuse -i ' + process.cwd() + '/test/html/src/twoDepends/input.html -o ' + process.cwd() + '/test/html/result/twoDepends/output.html', function (error, stdout, stderr) {
-
-					// check the output against the expected output
-					assert.equal(fs.readFileSync(process.cwd() + '/test/html/result/twoDepends/output.html', 'utf-8'), fs.readFileSync(process.cwd() + '/test/html/expected/twoDepends/result.html', 'utf-8'));
-
-					// we're done
-					done();
+					done(err);
 
 				});
 
