@@ -10,8 +10,12 @@ var path = require('path');
 
 if (argv.w) {
 	
+	// what mode are we running in, HTML or JS?
+	var mode = path.extname(argv.i).replace(/^\./, '');
+	// swtich the regular expression based on mode
+	var regex = (mode === 'js') ? fuse.reJS : fuse.reHTML;
 	// let's grab each file that we need to watch
-	var a = fuse.getReferencedFiles(fuse.getFileContent(argv.i));
+	var a = fuse.getReferencedFiles(fuse.getFileContent(argv.i), regex);
 	var relativePath = path.dirname(argv.i) + '/';
 	
 	// loop through an setup a watch on each referenced file
