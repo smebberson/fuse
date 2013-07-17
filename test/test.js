@@ -77,6 +77,20 @@ describe('Using fuse', function () {
 
 			});
 
+			it('by <!-- @import -->', function (done) {
+
+				exec('fuse -i ' + process.cwd() + '/test/html/src/import/basic-import.html -o ' + process.cwd() + '/test/html/result/import/basic-import-output.html', function (error, stdout, stderr) {
+
+					// check the output against the expected output
+					assert.equal(fs.readFileSync(process.cwd() + '/test/html/result/import/basic-import-output.html', 'utf-8'), fs.readFileSync(process.cwd() + '/test/html/expected/import/basic-import-result.html', 'utf-8'));
+
+					// we're done
+					done();
+
+				});
+
+			});
+
 		});
 
 	});
