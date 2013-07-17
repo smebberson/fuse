@@ -93,6 +93,24 @@ describe('Using fuse', function () {
 
 		});
 
+		describe('should fuse multiple files', function () {
+
+			it('with two depends', function (done) {
+
+				exec('fuse -i ' + process.cwd() + '/test/html/src/twoDepends/input.html -o ' + process.cwd() + '/test/html/result/twoDepends/output.html', function (error, stdout, stderr) {
+
+					// check the output against the expected output
+					assert.equal(fs.readFileSync(process.cwd() + '/test/html/result/twoDepends/output.html', 'utf-8'), fs.readFileSync(process.cwd() + '/test/html/expected/twoDepends/result.html', 'utf-8'));
+
+					// we're done
+					done();
+
+				});
+
+			});
+
+		});
+
 	});
 
 });
