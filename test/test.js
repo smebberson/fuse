@@ -59,4 +59,26 @@ describe('Using fuse', function () {
 
 	});
 
+	describe('with html', function () {
+
+		describe('should fuse two files', function () {
+
+			it('by <!-- @depends -->', function (done) {
+
+				exec('fuse -i ' + process.cwd() + '/test/html/src/depends/basic-depends.html -o ' + process.cwd() + '/test/html/result/depends/basic-depends-output.html', function (error, stdout, stderr) {
+
+					// check the output against the expected output
+					assert.equal(fs.readFileSync(process.cwd() + '/test/html/result/depends/basic-depends-output.html', 'utf-8'), fs.readFileSync(process.cwd() + '/test/html/expected/depends/basic-depends-result.html', 'utf-8'));
+
+					// we're done
+					done();
+
+				});
+
+			});
+
+		});
+
+	});
+
 });
