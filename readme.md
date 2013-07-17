@@ -1,10 +1,10 @@
-# Fuse [![Build Status](https://travis-ci.org/smebberson/fuse.png?branch=master)](https://travis-ci.org/smebberson/fuse)
+# Fuse [![Build Status][image-1]][1]
 
-> Fuse is a command line tool to fuse multiple JavaScript files into one, and optionally compress or mangle the JavaScript code.
+> Fuse is a command line tool to fuse multiple JavaScript or HTML files into one. If you're fusing JavaScript you can optionally compress or mangle the JavaScript code.
 
 ## Introduction
 
-Fuse is a simple cli tool to combine multiple JavaScript files into one. It also makes use of UglifyJS2 to either compress, or mangle or do both to the output of the JavaScript. It's designed to be simple, do less and be easy to use.
+Fuse is a simple cli tool to combine multiple JavaScript or HTML files into one. It also makes use of UglifyJS2 to either compress, or mangle or do both to the output of the JavaScript. It's designed to be simple, do less and be easy to use.
 
 ## Installation (via NPM)
 
@@ -16,45 +16,57 @@ You need to install it globally, because it's not something that you can `requir
 
 	npm test
 
-Tests are run using [Mocha][mocha]. You can also run `make test` to run the tests.
+Tests are run using [Mocha][2]. You can also run `make test` to run the tests.
 
 ## Usage
 
 ### In your JavaScript file
 
-Fuse uses inline comment-based directives to determine which JavaScript files you'd like to determine. Use the following syntax in your main JavaScript file to inform Fuse about which JavaScript file you'd like to fuse and where.
+Fuse uses inline comment-based directives to determine which JavaScript files you'd like to fuse. Use the following syntax in your main JavaScript file to inform Fuse about which JavaScript file you'd like to fuse and where.
 
 	// @depends path/to/javascript/file.js
 
 Passing a file with the line above to Fuse, will produce a file containing the original JavaScript and the content of *path/to/javascript/file.js* in the exact position of the depends statement.
 
+### In your HTML file
+
+Fuse uses HTML comment-based directives to determine which HTML files you'd like to fuse. Use the following syntax in your main HTML file to inform Fuse about which HTML file you'd like to fuse and where.
+
+	<!-- @depends path/to/html/file.html -->
+
+Passing a file with the line above to Fuse, will produce a file containing the original HTML and the content of _path/to/html/file.html_ in the exact position of the depends statement.
+
 ### On the command line
 
-To run just once:
+To run just once and combine JavaScript:
 
 	fuse -i path/to/main.js -o path/to/output.js
 
-To watch a file for changes:
+To watch a file for changes and combine HTML:
 
-	fuse -i path/to/main.js -o path/to/output.js -w
+	fuse -i path/to/main.html -o path/to/main-combined.html -w
 
 When watching, Fuse will automatically watch any referenced files for changes too, and recompile the output file upon any changes to reference files.
 
-To compress the output using UglifyJS2:
+To compress the output using UglifyJS2 (JavaScript only):
 
 	fuse -i path/to/main.js -o path/to/output.js -c
 
-To mangle the output using UglifyJS2:
+To mangle the output using UglifyJS2 (JavaScript only):
 
 	fuse -i path/to/main.js -o path/to/output.js -m
 
-To compress and mangle, and watch:
+To compress and mangle, and watch (JavaScript only):
 
 	fuse -i path/to/main.js -o path/to/output.js -c -m -w
 
-To lint with [jshint][jshint] before combining:
+To lint with [jshint][3] before combining (JavaScript only):
 
 	fuse -i path/to/main.js -o path/to/output.js -l
 
-[mocha]: http://visionmedia.github.com/mocha/
-[jshint]: http://www.jshint.com/about/
+
+[1]:	https://travis-ci.org/smebberson/fuse
+[2]:	http://visionmedia.github.com/mocha/
+[3]:	http://www.jshint.com/about/
+
+[image-1]:	https://travis-ci.org/smebberson/fuse.png?branch=master
