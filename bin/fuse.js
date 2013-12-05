@@ -62,7 +62,7 @@ if (argv.w) {
 
 	fuser.on('error', function (err) {
 		console.log(colors.red('There was an error while fusing: ' + err));
-		process.exit();
+		process.exit(1);
 	});
 
 	// fuse the file, and the thrown events will take care of process exit

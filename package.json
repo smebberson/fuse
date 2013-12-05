@@ -11,5 +11,5 @@
   "scripts"         : { "test": "make test" },
   "directories"   	: { "bin": "./bin" },
   "version"       	: "0.2.1",
-  "engines"       	: {"node": ">=0.4"}
+  "engines"       	: {"node": ">=0.8"}
 }
