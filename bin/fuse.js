@@ -7,34 +7,65 @@ var _ = require('underscore');
 var argv = require('optimist').usage('\nFuse JavaScript or HTML files.\n\nUsage: $0 -i [input-file.(js|html)] -o [output-file.(js|html)] (-w) (-c) (-m) (-l)').demand(['i', 'o']).describe('i', 'Input file').describe('o', 'Output file').describe('w', 'Watch the input file for changes.').describe('c', 'Compress the output using UglifyJS2 (JavaScript only).').describe('m', 'Mangle the output using UglifyJS2. (JavaScript only)').describe('l', 'Lint the JavaScript using JSHint (JavaScript only)').argv;
 var fuse = require('../lib/fuse');
 var path = require('path');
+var fuser;
 
 if (argv.w) {
-	
-	// what mode are we running in, HTML or JS?
-	var mode = path.extname(argv.i).replace(/^\./, '');
-	// swtich the regular expression based on mode
-	var regex = (mode === 'js') ? fuse.reJS : fuse.reHTML;
-	// let's grab each file that we need to watch
-	var a = fuse.getReferencedFiles(fuse.getFileContent(argv.i), regex);
-	var relativePath = path.dirname(argv.i) + '/';
-	
-	// loop through an setup a watch on each referenced file
-	_(a).each(function (path) {
 
-		fuse.watchSrcFile(relativePath + path.path, argv.i, argv.o, argv.c, argv.m, argv.l);
-		console.log('Watching ' + colors.cyan(relativePath + path.path) + ' for changes.');
+	// arguments: input, output, compress, mangle, lint
+	fuser = fuse.fuse(argv.i, argv.o, argv.c, argv.m, argv.l);
+
+	fuser.on('watch', function (file) {
+		console.log('Watching ' + colors.cyan(file) + ' for changes.');
 	});
-	
-	// we also need to watch the input file
-	fuse.watchFile(argv.i, argv.o, argv.c, argv.m, argv.l);
-	console.log('Watching ' + colors.cyan(argv.i) + ' for changes.\nCTRL + C to stop.\n');
 
-	// now what we've finished watching, let's fuse immediately too
-	fuse.fuseFile(argv.i, argv.o, argv.c, argv.m, argv.l, false);
+	fuser.on('unwatch', function (file) {
+		console.log('No longer watching' + colors.cyan(file) + ' for changes.');
+	});
+
+	fuser.on('fuse', function (results) {
+		console.log('Updated ' + colors.green(results.updated) + ', fusing ' + results.fused.length + ' files @ ' + colors.green(fuser.formatTime()) + '.\n');
+	});
+
+	fuser.on('nofuse', function () {
+		console.log('The output file wasn\'t generated as there was nothing to combine.'.blue + '\n');
+	});
+
+	fuser.on('error', function (err) {
+		console.log(colors.red('There was an error while fusing: ' + err));
+	});
+
+	fuser.on('change', function (inputFileName) {
+		console.log(colors.blue(( inputFileName ) + ' changed ------------'));
+	});
+
+	fuser.on('lint', function (l) {
+		console.log(l);
+	});
+
+	// let's start watching the files and fuse immediately too
+	fuser.watch(true);
 	
 } else {
 
-	// assume we're not watching a file, let's just package!
-	fuse.fuseFile(argv.i, argv.o, argv.c, argv.m, argv.l);
+	// arguments: input, output, compress, mangle, lint
+	fuser = fuse.fuse(argv.i, argv.o, argv.c, argv.m, argv.l);
+
+	fuser.on('fuse', function (results) {
+		console.log('Updated ' + colors.green(results.updated) + ', fusing ' + results.fused.length + ' files @ ' + colors.green(fuser.formatTime()) + '.\n');
+		process.exit();
+	});
+
+	fuser.on('nofuse', function () {
+		console.log('The output file wasn\'t generated as there was nothing to combine.'.blue + '\n');
+		process.exit();
+	});
+
+	fuser.on('error', function (err) {
+		console.log(colors.red('There was an error while fusing: ' + err));
+		process.exit();
+	});
+
+	// fuse the file, and the thrown events will take care of process exit
+	fuser.fuseFile();
 
 }
