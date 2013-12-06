@@ -65,6 +65,27 @@ describe('Using fuse', function () {
 
 				});
 
+				it('by @include', function (done) {
+
+					// make the directory first to hold the result content
+					fs.mkdirSync(process.cwd() + '/test/javascript/result/include/');
+
+					exec('node ' + fuse + ' -i ' + process.cwd() + '/test/javascript/src/include/basic-include.js -o ' + process.cwd() + '/test/javascript/result/include/basic-include-output.js', function (error, stdout, stderr) {
+
+						// check the output against the expected output
+						assert.equal(fs.readFileSync(process.cwd() + '/test/javascript/result/include/basic-include-output.js', 'utf-8'), fs.readFileSync(process.cwd() + '/test/javascript/expected/include/basic-include-result.js', 'utf-8'));
+
+						// delete the file
+						fs.unlinkSync(process.cwd() + '/test/javascript/result/include/basic-include-output.js');
+						fs.rmdirSync(process.cwd() + '/test/javascript/result/include/');
+						
+						// we're done
+						done();
+
+					});
+
+				});
+
 			});
 
 			describe('should fuse multiple files', function () {
@@ -142,6 +163,27 @@ describe('Using fuse', function () {
 						// delete the file
 						fs.unlinkSync(process.cwd() + '/test/html/result/import/basic-import-output.html');
 						fs.rmdirSync(process.cwd() + '/test/html/result/import/');
+
+						// we're done
+						done();
+
+					});
+
+				});
+
+				it('by <!-- @include -->', function (done) {
+
+					// make the directory first to hold the result content
+					fs.mkdirSync(process.cwd() + '/test/html/result/include/');
+
+					exec('node ' + fuse + ' -i ' + process.cwd() + '/test/html/src/include/basic-include.html -o ' + process.cwd() + '/test/html/result/include/basic-include-output.html', function (error, stdout, stderr) {
+
+						// check the output against the expected output
+						assert.equal(fs.readFileSync(process.cwd() + '/test/html/result/include/basic-include-output.html', 'utf-8'), fs.readFileSync(process.cwd() + '/test/html/expected/include/basic-include-result.html', 'utf-8'));
+
+						// delete the file
+						fs.unlinkSync(process.cwd() + '/test/html/result/include/basic-include-output.html');
+						fs.rmdirSync(process.cwd() + '/test/html/result/include/');
 
 						// we're done
 						done();
