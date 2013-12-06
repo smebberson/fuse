@@ -48,7 +48,7 @@ To watch a file for changes and combine HTML:
 
 	fuse -i path/to/main.html -o path/to/main-combined.html -w
 
-When watching, Fuse will automatically watch any referenced files for changes too, and recompile the output file upon any changes to reference files. Fuse will also rescan the input file for new referenced files, or references files that have been remove and either watch or unwatch those respectively.
+When watching, Fuse will automatically watch any referenced files for changes too, and recompile the output file upon any changes to reference files. Fuse will also rescan the input file for new reference files, or referenced files that have been removed and either watch or unwatch those respectively.
 
 To compress the output using UglifyJS2 (JavaScript only):
 
