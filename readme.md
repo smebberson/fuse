@@ -1,4 +1,4 @@
-# Fuse [![build status](https://secure.travis-ci.org/smebberson/fuse.png)][1]
+# Fuse [![build status](https://secure.travis-ci.org/smebberson/fuse.png?branch=master)][1]
 
 > Fuse is a command line tool to fuse multiple JavaScript or HTML files into one. If you're fusing JavaScript you can optionally compress or mangle the JavaScript code.
 
