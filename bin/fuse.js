@@ -19,7 +19,7 @@ if (argv.w) {
 	});
 
 	fuser.on('unwatch', function (file) {
-		console.log('No longer watching' + colors.cyan(file) + ' for changes.');
+		console.log('No longer watching ' + colors.cyan(file) + ' for changes.');
 	});
 
 	fuser.on('fuse', function (results) {
