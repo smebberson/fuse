@@ -235,7 +235,7 @@ describe('Using fuse', function () {
 
 				fuse.fuseContent(content, path.resolve(__dirname, 'module', 'depends'), 'html', function (err, result) {
 
-					assert.equal(expected, result);
+					assert.equal(expected, result.updated);
 
 					done(err);
 
