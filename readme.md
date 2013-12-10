@@ -1,18 +1,44 @@
 # Fuse [![build status](https://secure.travis-ci.org/smebberson/fuse.png?branch=moduleintegration)][1]
 
-> Fuse is a command line tool to fuse multiple JavaScript or HTML files into one. If you're fusing JavaScript you can optionally compress or mangle the JavaScript code.
+> Fuse is a tool to fuse multiple JavaScript or HTML files into one. If you're fusing JavaScript you can optionally compress or mangle the JavaScript code.
+
+You can use Fuse in three ways:
+
+- on the command line
+- as a Node.js module via require
+- in express as middleware
 
 ## Introduction
 
-Fuse is a simple cli tool to combine multiple JavaScript or HTML files into one. It also makes use of UglifyJS2 to either compress, or mangle or do both to the output of the JavaScript. It's designed to be simple, do less and be easy to use.
+Fuse is a simple tool to combine multiple JavaScript or HTML files into one. It also makes use of UglifyJS2 to either compress, or mangle or do both to the output of the JavaScript. It's designed to be simple, do less and be easy to use.
 
-## Installation (via NPM)
+Compressing and mangling is only available to the commandline tool.
+
+## Installation
+
+There are two ways to install Fuse, depending on usage.
+
+### Install as a command line tool
 
 	[sudo] npm install fuse -g
 
-You need to install it globally, because it's not something that you can `require` in your nodejs code. It's only a command line program.
+You need to install it globally, so that NPM will add it your bin path.
+
+### Install as a module
+
+	[sudo] npm install fuse --save
+
+`--save` will insert Fuse as a dependency in your package.json. Once you've installed it as a module, you can then use it via require in the following methods.
+
+### Install for express
+
+To use fuse within Express, you must install fuse-connect. fuse-connect is a connect middlware wrapper for Fuse.
+
+	[sudo] npm install fuse-connect --save
 
 ## Running tests (via NPM)
+
+Make sure you're in the test directory within Fuse, then...
 
 	npm test
 
@@ -65,6 +91,41 @@ To compress and mangle, and watch (JavaScript only):
 To lint with [jshint][3] before combining (JavaScript only):
 
 	fuse -i path/to/main.js -o path/to/output.js -l
+
+### As a node.js module
+
+To fuse a file:
+
+	var fuse = require('fuse');
+	fuse.fuseFile(inputFile, outputFile, function (err, results) {
+		// do something with the results
+		// in this case a file has been generated, results.updated
+	});
+
+To fuse some content:
+
+	var fuse = require('fuse');
+	fuse.fileContent(content, relativePath, mode, function (err, results) {
+		// do something with the results
+		// in this case, no file has been generated, but contents stored within results.updated
+	});
+
+`content` is a string with some Fuse directives within it.
+`relativePath` is a directory from which to load the directive referenced files.
+`mode` tells Fuse if you're fusing HTML or JavaScript.
+
+### With express
+
+Make sure you've installed fuse-connect. You can then include fuse-connect to bind requests to particular files to fuse, so that they're automatically updated upon request.
+
+	var fuse = require('fuse-connect');
+	var filesToFuse = [
+		{src: '/path/to/src-file.js', dest: '/path/to/dest-file.js'},
+		{src: '/path/to/src-file.html', dest: '/path/to/dest-file.html'}
+	];
+
+	// add fuse-connect to the middleware
+	app.use(fuse.middleware(filesToFuse));
 
 
 [1]:	https://travis-ci.org/smebberson/fuse
