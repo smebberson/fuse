@@ -11,6 +11,6 @@
   "bin"				      : { "fuse": "./bin/fuse.js" },
   "scripts"         : { "test": "make test" },
   "directories"   	: { "bin": "./bin" },
-  "version"       	: "0.3.0",
+  "version"       	: "0.4.0",
   "engines"       	: {"node": ">=0.8"}
 }
