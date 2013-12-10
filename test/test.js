@@ -192,19 +192,7 @@ describe('Using fuse', function () {
 
 				});
 
-				it('by <!-- @import -->', function (done) {
-
-					// make the directory first to hold the result content
-					fs.mkdirSync(process.cwd() + '/test/html/result/import/');
-
-					exec('node ' + fuse + ' -i ' + process.cwd() + '/test/html/src/import/basic-import.html -o ' + process.cwd() + '/test/html/result/import/basic-import-output.html', function (error, stdout, stderr) {
-
-						// check the output against the expected output
-						assert.equal(fs.readFileSync(process.cwd() + '/test/html/result/import/basic-import-output.html', 'utf-8'), fs.readFileSync(process.cwd() + '/test/html/expected/import/basic-import-result.html', 'utf-8'));
-
-						// delete the file
-						fs.unlinkSync(process.cwd() + '/test/html/result/import/basic-import-output.html');
-						fs.rmdirSync(process.cwd() + '/test/html/result/import/');
+			});
 
 			describe('should fuse multiple files', function () {
 
@@ -231,12 +219,7 @@ describe('Using fuse', function () {
 
 			});
 
-			describe('should fuse multiple files', function () {
-
-				it('with two depends', function (done) {
-
-					// make the directory first to hold the result content
-					fs.mkdirSync(process.cwd() + '/test/html/result/twoDepends/');
+		});
 
 	});
 
@@ -292,20 +275,6 @@ describe('Using fuse', function () {
 						done();
 				
 					});
-
-					// exec('node ' + fuse + ' -i ' + process.cwd() + '/test/html/src/depends/basic-depends.html -o ' + process.cwd() + '/test/html/result/depends/basic-depends-output.html', function (error, stdout, stderr) {
-
-					// 	// check the output against the expected output
-					// 	assert.equal(fs.readFileSync(process.cwd() + '/test/html/result/depends/basic-depends-output.html', 'utf-8'), fs.readFileSync(process.cwd() + '/test/html/expected/depends/basic-depends-result.html', 'utf-8'));
-
-					// 	// delete the file
-					// 	fs.unlinkSync(process.cwd() + '/test/html/result/depends/basic-depends-output.html');
-					// 	fs.rmdirSync(process.cwd() + '/test/html/result/depends/');
-						
-					// 	// we're done
-					// 	done();
-
-					// });
 
 				});
 
