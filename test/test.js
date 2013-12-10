@@ -237,17 +237,37 @@ describe('Using fuse', function () {
 				fs.rmdir(process.cwd() + '/test/html/result/', done);
 			});
 
-			it('should fuse content', function (done) {
+			describe('should fuse content', function () {
 
-				var fuse = require('../lib');
-				var content = "<p>html first</p><!-- @depends depends.html --><p>html end</p>";
-				var expected = "<p>html first</p><p>content from depends.html</p><p>html end</p>";
+				it('with <!-- @depends -->', function (done) {
 
-				fuse.fuseContent(content, path.resolve(__dirname, 'module', 'depends'), 'html', function (err, result) {
+					var fuse = require('../lib');
+					var content = "<p>html first</p><!-- @depends depends.html --><p>html end</p>";
+					var expected = "<p>html first</p><p>content from depends.html</p><p>html end</p>";
 
-					assert.equal(expected, result.updated);
+					fuse.fuseContent(content, path.resolve(__dirname, 'module', 'depends'), 'html', function (err, result) {
 
-					done(err);
+						assert.equal(expected, result);
+
+						done(err);
+
+					});
+
+				});
+
+				it('without a directive', function (done) {
+
+					var fuse = require('../lib');
+					var content = "<p>html first</p><!-- @nodepend depends.html --><p>html end</p>";
+					var expected = "<p>html first</p><!-- @nodepend depends.html --><p>html end</p>";
+
+					fuse.fuseContent(content, path.resolve(__dirname, 'module', 'depends'), 'html', function (err, result) {
+
+						assert.equal(expected, result);
+
+						done(err);
+
+					});
 
 				});
 
@@ -270,6 +290,31 @@ describe('Using fuse', function () {
 						// delete the file
 						fs.unlinkSync(process.cwd() + '/test/html/result/depends/basic-depends-output.html');
 						fs.rmdirSync(process.cwd() + '/test/html/result/depends/');
+						
+						// we're done
+						done();
+				
+					});
+
+				});
+
+				it('without a directive', function (done) {
+
+					// make the directory first to hold the result content
+					fs.mkdirSync(process.cwd() + '/test/html/result/noDepends/');
+
+					var fuse = require('../lib');
+
+					fuse.fuseFile(process.cwd() + '/test/html/src/noDepends/no-depends.html', process.cwd() + '/test/html/result/noDepends/no-depends-output.html', function (err, result) {
+
+						assert.equal(result.updated, process.cwd() + '/test/html/result/noDepends/no-depends-output.html');
+
+						// check the output against the expected output
+						assert.equal(fs.readFileSync(process.cwd() + '/test/html/result/noDepends/no-depends-output.html', 'utf-8'), fs.readFileSync(process.cwd() + '/test/html/expected/noDepends/no-depends-result.html', 'utf-8'));
+
+						// delete the file
+						fs.unlinkSync(process.cwd() + '/test/html/result/noDepends/no-depends-output.html');
+						fs.rmdirSync(process.cwd() + '/test/html/result/noDepends/');
 						
 						// we're done
 						done();
