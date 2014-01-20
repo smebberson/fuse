@@ -1,16 +1,47 @@
 {
-  "name"			: "fuse",
-  "description"		: "Command line combiner for fusing mutliple JavaScript or HTML files into one.",
-  "url"           	: "http://github.com/smebberson/fuse",
-  "keywords"      	: ["combiner", "javascript", "cli", "parser", "command", "packager"],
-  "author"        	: {"name": "Scott Mebberson", "email": "scott@scottmebberson.com"},
-  "repository"	  	: {"type": "git", "url": "https://github.com/smebberson/fuse.git"},
-  "dependencies"  	: { "underscore": ">=1.4.x", "optimist": ">=0.3.5", "colors": ">=0.6.x", "uglify-js": ">=2.2.x", "jshint": "0.9.x" },
-  "devDependencies"	: { "mocha": "1.8.x"},
-  "main"            : "./lib",
-  "bin"				      : { "fuse": "./bin/fuse.js" },
-  "scripts"         : { "test": "make test" },
-  "directories"   	: { "bin": "./bin" },
-  "version"       	: "0.4.0",
-  "engines"       	: {"node": ">=0.8"}
+  "name": "fuse",
+  "description": "Command line combiner for fusing mutliple JavaScript or HTML files into one.",
+  "url": "http://github.com/smebberson/fuse",
+  "keywords": [
+    "combiner",
+    "javascript",
+    "cli",
+    "parser",
+    "command",
+    "packager"
+  ],
+  "author": {
+    "name": "Scott Mebberson",
+    "email": "scott@scottmebberson.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/smebberson/fuse.git"
+  },
+  "dependencies": {
+    "underscore": ">=1.4.x",
+    "optimist": ">=0.3.5",
+    "colors": ">=0.6.x",
+    "uglify-js": ">=2.2.x",
+    "jshint": "0.9.x",
+    "debug": "~0.7.4",
+    "async": "~0.2.9"
+  },
+  "devDependencies": {
+    "mocha": "1.8.x"
+  },
+  "main": "./lib",
+  "bin": {
+    "fuse": "./bin/fuse.js"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "directories": {
+    "bin": "./bin"
+  },
+  "version": "0.4.0",
+  "engines": {
+    "node": ">=0.8"
+  }
 }
