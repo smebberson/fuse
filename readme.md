@@ -129,7 +129,7 @@ Make sure you've installed fuse-connect. You can then include fuse-connect to bi
 
 
 [1]:	https://travis-ci.org/smebberson/fuse
-[2]:	http://visionmedia.github.com/mocha/
+[2]:	https://mochajs.org/
 [3]:	http://www.jshint.com/about/
 
 [image-1]:	https://travis-ci.org/smebberson/fuse.png?branch=master
